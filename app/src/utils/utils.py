@@ -9,9 +9,9 @@ def create_gemini_payload(preferred_books):
         }]
     }
 
-def format_gemini_responde(payload):
+def format_gemini_response(payload):
     books = []
-    for recommendation in response['contents'][0]['parts']:
+    for recommendation in payload['contents'][0]['parts']:
         books_info = {
             'book_name': recommendation['text'],
             'book_author': recommendation['author'],

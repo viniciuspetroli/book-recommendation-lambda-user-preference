@@ -32,9 +32,7 @@ data "aws_iam_policy_document" "dynamodb_access" {
     ]
 
     resources = [
-      "arn:aws:dynamodb:sa-east-1:*:table/Users",
-      "arn:aws:dynamodb:sa-east-1:*:table/Books",
-      "arn:aws:dynamodb:sa-east-1:*:table/Recommendations"
+      "arn:aws:dynamodb:sa-east-1:*:table/Users"
     ]
   }
 }

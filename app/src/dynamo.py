@@ -1,3 +1,5 @@
+import json
+
 class DynamoService:
     def __init__(self, session, table):
         self.client = session.client('dynamodb')
@@ -5,7 +7,10 @@ class DynamoService:
     
     def get_item(self, key):
         response = self.client.get_item(TableName=self.table,Key=key)
-        return response
+        return {
+            "statusCode": 200,
+            "body": json.dumps(response)
+        }
     
     def put_item(self, item):
         self.client.put_item(TableName=self.table,Item=item)

@@ -13,5 +13,3 @@ def lambda_handler(event, context):
         return result
     except Exception as e:
         raise e
-    
-#Just a comment to push the code

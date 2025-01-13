@@ -17,7 +17,7 @@ def process(event, dynamo_service: DynamoService):
         key = {
             'user_id': {'N': body["user_id"]},
         }
-        update_expression = "set nome = :nome"
+        update_expression = "set user_name = :user_name"
         expression_attribute_values = {
             ':user_name': {'S': body["user_name"]},
         }
@@ -31,5 +31,3 @@ def process(event, dynamo_service: DynamoService):
     else:
         raise Exception("Invalid HTTP method")
     return result
-
-#Just a comment to push the code

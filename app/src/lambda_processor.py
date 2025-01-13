@@ -17,10 +17,24 @@ def process(event, dynamo_service: DynamoService):
         key = {
             'user_id': {'N': body["user_id"]},
         }
-        update_expression = "set user_name = :user_name"
-        expression_attribute_values = {
-            ':user_name': {'S': body["user_name"]},
-        }
+    
+        update_expression = "set "
+        expression_attribute_values = {}
+
+        if "user_name" in body:
+            update_expression += "user_name = :user_name, "
+            expression_attribute_values[':user_name'] = {'S': body["user_name"]}
+
+        if "user_fav_cat" in body:
+            update_expression += "user_fav_cat = :user_fav_cat, "
+            expression_attribute_values[':user_fav_cat'] = {'S': body["user_fav_cat"]}
+
+        if "user_fav_aut" in body:
+            update_expression += "user_fav_aut = :user_fav_aut, "
+            expression_attribute_values[':user_fav_aut'] = {'S': body["user_fav_aut"]}
+
+        update_expression = update_expression.rstrip(", ")
+
         result = dynamo_service.update_item(key=key, update_expression=update_expression, att_values=expression_attribute_values)
     elif http_method == "GET":
         user_id = event["queryStringParameters"]["user_id"]

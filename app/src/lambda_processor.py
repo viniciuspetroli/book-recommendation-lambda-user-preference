@@ -37,11 +37,15 @@ def process(event, dynamo_service: DynamoService):
 
         result = dynamo_service.update_item(key=key, update_expression=update_expression, att_values=expression_attribute_values)
     elif http_method == "GET":
-        user_id = event["queryStringParameters"]["user_id"]
-        result = dynamo_service.get_item(key={"user_id": {"N": user_id}})
+        key = {
+            'user_id': {'N': body["user_id"]},
+        }
+        result = dynamo_service.get_item(key=key)
     elif http_method == "DELETE":
-        user_id = event["queryStringParameters"]["user_id"]
-        result = dynamo_service.delete_item(key={"user_id": {"N": user_id}})
+        key = {
+            'user_id': {'N': body["user_id"]},
+        }
+        result = dynamo_service.delete_item(key=key)
     else:
         raise Exception("Invalid HTTP method")
     return result
